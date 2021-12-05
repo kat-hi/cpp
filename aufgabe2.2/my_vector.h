@@ -119,7 +119,8 @@ namespace my {
             n_ = static_cast<T *>(malloc(sizeof(T) * capacity_));
         } else {
             // reservation and data copy
-            vector<T> copy = vector<T>(move(*this));
+            vector<T> copy = vector<T>(*this);
+            clear();
             n_ = static_cast<T *>(malloc(sizeof(T) * capacity_));
             size_t max_index = old_size;
             if (new_capacity <= old_size) {
@@ -186,16 +187,16 @@ namespace my {
         std::swap(lhs.size_, rhs.size_);
     }
 
-    template<typename T>
-    bool vector<T>::operator==(const vector<T> rhs) {
-        bool equals = true;
-        for (int index = 0; index < size_; index++) {
-            if(n_[index] != rhs[index]) {
-                return false;
-            }
-        }
-        return equals;
-    }
+//    template<typename T>
+//    bool vector<T>::operator==(const vector<T> rhs) {
+//        bool equals = true;
+//        for (int index = 0; index < size_; index++) {
+//            if(n_[index] != rhs[index]) {
+//                return false;
+//            }
+//        }
+//        return equals;
+//    }
 }
 
 

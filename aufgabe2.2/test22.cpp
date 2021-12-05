@@ -66,9 +66,12 @@ void test_22() {
     {
         cout << arrow + " push_back(), shrink_to_fit() ... ";
         {
+            assert(Payload::count() == 0);
+
             vector<Payload> v(4);
             v.push_back(Payload(1, 1, 1));
             v.push_back(Payload(1, 1, 2));
+            assert(Payload::count() == 2); // again one payload
             assert(v.capacity() == 4);
             assert(v.size() == 2);
 
@@ -77,13 +80,16 @@ void test_22() {
             assert(v.size() != v.capacity());
             v.shrink_to_fit();
             assert(v.size() == v.capacity());
+            assert(Payload::count() == 2);
         }
         printf("%21s", "");
-        cout << done << endl;    }
+        cout << done << endl;
+    }
 
     {
         cout << arrow + " push back() if size > capacity ...";
         {
+            assert(Payload::count() == 0);
             vector<Payload> v2(3);
 
             // memory without objects?
@@ -124,5 +130,13 @@ void test_22() {
         printf("%19s", "");
         cout << done << endl;
     }
-
+//    {
+//        {
+//            vector<Payload> v(4, Payload(1,1,1));
+//            vector<Payload> l;
+//            l = v;
+//            l.push_back(Payload(1,2,3));
+//            assert(l == v);
+//        }
+//    }
 };
