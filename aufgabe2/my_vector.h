@@ -21,7 +21,7 @@ namespace my {
             }
         }
 
-        explicit vector(int number_intial_elements) {
+        vector(int number_intial_elements) {
             n_ = new T[number_intial_elements];
             for (int i = 0; i < number_intial_elements; i++) {
                 n_[i] = nullptr;
@@ -34,12 +34,13 @@ namespace my {
         size_t size() const { return size_; }
 
         ~vector() {
-            delete[] n_;
-            size_ = 0;
+            clear();
         }
 
         void clear() {
-            delete[] n_;
+            for (int index = 0; index < size_; index++) {
+                (n_+index)->~T();
+            }
             size_ = 0;
         }
 
@@ -93,8 +94,6 @@ namespace my {
 
     template<typename T>
     T &vector<T>::at(size_t index) const {
-        cout << index << endl;
-        cout << size_ << endl;
         if (index >= 0 && index < size_) {
             return n_[index];
         } else {

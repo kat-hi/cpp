@@ -92,7 +92,6 @@ namespace my {
             (n_+index)->~T();
         }
         size_ = 0;
-
     }
 
     template<typename T>

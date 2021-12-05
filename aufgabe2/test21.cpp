@@ -11,6 +11,8 @@ void test_21() {
     using my::vector;
     using std::cout;
     using std::endl;
+    string done = "\u2705";
+    string arrow = "\u21E8";
 
     {
         cout << "construction/destruction, size() ... ";
@@ -28,7 +30,8 @@ void test_21() {
 
         // are the elements destroyed?
         assert(Payload::count() == 0);
-        cout << " done." << endl;
+        cout << done << endl;
+
     }
 
 
@@ -45,8 +48,6 @@ void test_21() {
 
             assert(v.size() == 3);
             assert(!v.empty());
-            cout << v.size() << endl;
-            cout << Payload::count() << endl;
             assert(Payload::count() == 3);
 
             assert(v.pop_back() == Payload(2, 2, 2));
@@ -63,7 +64,8 @@ void test_21() {
             assert(Payload::count() == 0);
         }
         assert(Payload::count() == 0);
-        cout << " done." << endl;
+        cout << done << endl;
+
     }
 #if 1
 
@@ -83,7 +85,7 @@ void test_21() {
             v[1] = Payload(-1, -1, -1);
             assert(v[1] == Payload(-1, -1, -1));
         }
-        cout << " done." << endl;
+        cout << done << endl;
     }
 
     {
@@ -110,7 +112,7 @@ void test_21() {
                 cout << "exception: " << ex.what();
             }
         }
-        cout << " done." << endl;
+        cout << done << endl;
     }
 
     {
@@ -129,7 +131,7 @@ void test_21() {
             assert(vconst[0] == Payload(1, 2, 3));
             assert(vconst.at(0) == Payload(1,2,3));
         }
-        cout << " done." << endl;
+        cout << done << endl;
     }
 
     {
