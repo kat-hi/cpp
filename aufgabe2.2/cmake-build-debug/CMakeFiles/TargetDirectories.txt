@@ -1,0 +1,3 @@
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe2.2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe2.2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe2.2/cmake-build-debug/CMakeFiles/aufgabe2.2.dir

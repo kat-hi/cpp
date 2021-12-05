@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++ -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/aufgabe2.dir/main.cpp.o CMakeFiles/aufgabe2.dir/payload.cpp.o CMakeFiles/aufgabe2.dir/test21.cpp.o -o aufgabe2 

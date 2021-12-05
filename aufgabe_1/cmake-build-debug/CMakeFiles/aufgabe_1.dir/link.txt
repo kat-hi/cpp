@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++ -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/aufgabe_1.dir/vec3f.cpp.o CMakeFiles/aufgabe_1.dir/main.cpp.o CMakeFiles/aufgabe_1.dir/test11.cpp.o -o aufgabe_1 

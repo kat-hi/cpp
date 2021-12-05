@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1.2/generic_test.h
+iostream
+-
+cassert
+-
+vec.h
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1.2/vec.h
+random
+-
+
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1.2/main.cpp
+vec.h
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1.2/vec.h
+generic_test.h
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1.2/generic_test.h
+random
+-
+cmath
+-
+
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1.2/vec.h
+iostream
+-
+cmath
+-
+array
+-
+

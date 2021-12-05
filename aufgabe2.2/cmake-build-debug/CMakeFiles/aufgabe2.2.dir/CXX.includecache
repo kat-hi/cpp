@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe2.2/my_vector.h
+payload.h
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe2.2/payload.h
+
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe2.2/payload.h
+memory
+-
+iostream
+-
+
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe2.2/test22.cpp
+iostream
+-
+cassert
+-
+my_vector.h
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe2.2/my_vector.h
+payload.h
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe2.2/payload.h
+stdio.h
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe2.2/stdio.h
+

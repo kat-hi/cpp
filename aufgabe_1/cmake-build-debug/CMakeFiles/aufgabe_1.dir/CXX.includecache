@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1/main.cpp
+test11.h
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1/test11.h
+vec3f.h
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1/vec3f.h
+iostream
+-
+cassert
+-
+
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1/test11.cpp
+iostream
+-
+cassert
+-
+typeinfo
+-
+vec3f.h
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1/vec3f.h
+
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1/test11.h
+
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1/vec3f.cpp
+vec3f.h
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1/vec3f.h
+
+/Users/katharinasachs/Documents/Documents/private/repos/c++/aufgabe_1/vec3f.h
+array
+-
+
