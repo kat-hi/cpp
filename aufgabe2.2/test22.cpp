@@ -105,10 +105,10 @@ void test_22() {
             assert(Payload::count() == 5);
         }
         printf("%-20s", "");
-        cout << done << endl;    }
+        cout << done << endl;
+    }
     {
-        cout << arrow;
-        printf("pop_back(), payload destruction ...");
+        cout << arrow + " pop_back(), payload destruction ...";
         {
             assert(Payload::count() == 0);
             vector<Payload> v(4);
@@ -121,7 +121,7 @@ void test_22() {
             assert(Payload::count() == 1);
             assert(v.size() == 1);
         }
-        printf("%20s", "");
+        printf("%19s", "");
         cout << done << endl;
     }
 

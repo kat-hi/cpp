@@ -6,7 +6,6 @@
 #define AUFGABE2_MY_VECTOR_H
 
 using namespace std;
-#include "payload.h"
 
 namespace my {
     template<typename T>
@@ -99,29 +98,43 @@ namespace my {
     template<typename T>
     inline void vector<T>::push_back(const T &value) {
         size_t oldsize = size_;
+        size_t old_capacity = capacity_;
         size_++;
         if (size_ <= capacity_) {
             T *v = new(n_ + oldsize) T(value);
             assert(v == n_ + oldsize);
         } else {
-            vector<T> copy = vector<T>(*this);
-            clear();
-
-            size_ = oldsize + 1;
-            capacity_ = capacity_ * 2;
-            n_ = static_cast<T *>(malloc(sizeof(T) * capacity_));
-
-            for (int i = 0; i <= size_; i++) {
-                if (oldsize == i) {
-                    T *v = new(n_ + i) T(value);
-                    assert(v == n_ + i);
-                } else {
-                    T *v = new(n_ + i) T(copy[i]);
-                    assert(v == n_ + i);
-                }
-            };
+            size_t new_capacity = 2*old_capacity;
+            this->reserve(new_capacity);
+            T *v = new(n_ + oldsize) T(value);
+            assert(v == n_ + oldsize);
         };
     }
+
+    template<typename T>
+    void vector<T>::reserve(const size_t new_capacity) {
+        size_t old_size = size_;
+        if (size_ == 0) {
+            // no data copy
+            clear();
+            n_ = static_cast<T *>(malloc(sizeof(T) * capacity_));
+        } else {
+            // reservation and data copy
+            vector<T> copy = vector<T>(move(*this));
+            n_ = static_cast<T *>(malloc(sizeof(T) * capacity_));
+            size_t max_index = old_size;
+            if (new_capacity <= old_size) {
+                // mehr Items als Kapazität -> Datenverlust!
+                max_index = new_capacity;
+            }
+            for (int index = 0; index < max_index; index++) {
+                new(n_ + index) T(move(copy[index]));
+            }
+        }
+        capacity_ = new_capacity;
+        size_ = old_size;
+    }
+
 
     template<typename T>
     T vector<T>::pop_back() {
@@ -149,34 +162,6 @@ namespace my {
         }
     }
 
-    template<typename T>
-    void vector<T>::reserve(const size_t new_capacity) {
-        size_t old_size = size_;
-        if (capacity_ == 0) {
-            // only reservation, no data copy
-            n_ = static_cast<T *>(malloc(sizeof(T) * capacity_));
-        } else {
-            // reservation and data copy
-            vector<T> copy(*this); // copy constructor
-            clear();
-            free(n_);
-            n_ = static_cast<T *>(malloc(sizeof(T) * capacity_));
-            size_t max_index;
-            if (new_capacity >= old_size) {
-                // mehr Kapazität als Größe -> alles passt rein
-                max_index = old_size;
-            } else {
-                // mehr Items als Kapazität -> Datenverlust!
-                max_index = new_capacity;
-            }
-            for (int i = 0; i < max_index; i++) {
-                T *item = new(n_ + i) T(copy[i]);
-                assert(item == n_ + i);
-            }
-        }
-        capacity_ = new_capacity;
-        size_ = old_size;
-    }
 
     template<typename T>
     void vector<T>::shrink_to_fit() {
