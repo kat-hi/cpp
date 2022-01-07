@@ -25,6 +25,9 @@ namespace my {
         // protected inner class node is defined in a separate header file
         class node;
 
+    private:
+        size_t treesize_ = 0;
+
     public:
         // public inner class iterator is defined in a separate header file
         class iterator;

@@ -41,9 +41,8 @@ namespace my {
 
 // number of elements in map (nodes in tree)
     template<typename K, typename T>
-    size_t
-    treemap<K, T>::size() const {
-        /* todo */ return 666;
+    size_t treemap<K, T>::size() const {
+        return treesize_;
     }
 
 // move ctor
