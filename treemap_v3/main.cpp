@@ -81,11 +81,11 @@ int main() {
             assert(was_inserted == false);
             assert(iter_three->second == Payload(3,4,5));
         }
-//
-//        // now implement find() and count()
-//        cout << "count and find... " << endl;
-//
-//        // key "Three" should be found exactly once
+
+        // now implement find() and count()
+        cout << "count and find... " << endl;
+
+        // key "Three" should be found exactly once
 //        assert(m.count("Three") == 1);
 //
 //        // key "Four" should not be found
