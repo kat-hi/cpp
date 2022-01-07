@@ -44,9 +44,9 @@ int main()
 
         // inserting (key,value) pairs
         cout << "insert Three, " << Payload(3,3,3) << endl;
-//        auto [iter3,flag3] = m.insert("Three", Payload(3,3,3));
-//        assert(flag3 == true);
-//        assert(m.size() == 1);
+        auto [iter3,flag3] = m.insert("Three", Payload(3,3,3));
+        assert(flag3 == true);
+        assert(m.size() == 1);
 //
 //        cout << "insert Seven, " << Payload(7,7,7) << endl;
 //        auto [iter7,flag7] = m.insert("Seven", Payload(7,7,7));

@@ -5,7 +5,9 @@ CMakeFiles/treemap.dir/main.cpp.o: \
  ../main.cpp \
  ../payload.h \
  ../treemap.h \
- ../treemap_class.h
+ ../treemap_class.h \
+ ../treemap_iterator.h \
+ ../treemap_node.h
 CMakeFiles/treemap.dir/payload.cpp.o: \
  ../payload.cpp \
  ../payload.h

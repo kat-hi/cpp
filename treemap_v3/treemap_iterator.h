@@ -17,11 +17,10 @@ namespace my {
 
         // construct iterator referencing a specific node
         // - only treemap shall be allowed to do so
-        iterator(const std::shared_ptr <node> &val, const std::shared_ptr <node> &root)
-        : nodeObserver_(std::weak_ptr<node>(val)), root_(std::weak_ptr<node>(root)) {}
+        iterator(const std::shared_ptr <node> &value) : nodeObserver_(std::weak_ptr<node>(value)) {}
 
         // non-owning reference to the actual node
-        /* todo */
+        std::weak_ptr <node> nodeObserver_;
 
     public:
 

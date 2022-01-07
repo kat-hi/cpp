@@ -14,6 +14,10 @@ namespace my {
  */
     template<typename K, typename T>
     class treemap {
+    protected:
+        // protected inner class node is defined in a separate header file
+        class node;
+
     public:
 
         // public type aliases
@@ -21,12 +25,9 @@ namespace my {
         using mapped_type = T;
         using value_type = std::pair<K, T>;
 
-    protected:
-        // protected inner class node is defined in a separate header file
-        class node;
-
     private:
         size_t treesize_ = 0;
+        std::shared_ptr<node> treeroot_ = nullptr;
 
     public:
         // public inner class iterator is defined in a separate header file

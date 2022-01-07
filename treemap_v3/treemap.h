@@ -12,6 +12,8 @@
 
 // class definitions
 #include "treemap_class.h"
+#include "treemap_iterator.h"
+#include "treemap_node.h"
 
 namespace my {
 
@@ -20,8 +22,9 @@ namespace my {
     }
 
     template<typename K, typename T>
-    void
-    treemap<K, T>::clear() {
+    void treemap<K, T>::clear() {
+        treeroot_ = nullptr;
+        treesize_ = 0;
     }
 
 // random read-only access to value by key
@@ -47,13 +50,13 @@ namespace my {
 
 // move ctor
     template<typename K, typename T>
-    treemap<K, T>::treemap(treemap<K, T> &&) {
-        /* todo */
+    treemap<K, T>::treemap(treemap<K, T> &&map) {
+        swap(*this, map);
     }
 
 // deep copy ctor
     template<typename K, typename T>
-    treemap<K, T>::treemap(const treemap<K, T> &) {
+    treemap<K, T>::treemap(const treemap<K, T> &map) {
         /* todo */
     }
 
@@ -85,9 +88,15 @@ namespace my {
 // - iterator to element
 // - true if element was inserted; false if key was already in map
     template<typename K, typename T>
-    std::pair<typename treemap<K, T>::iterator, bool>
-    treemap<K, T>::insert(const K &, const T &) {
-        /* todo */ return std::make_pair(iterator(), false);
+    std::pair<typename treemap<K, T>::iterator, bool> treemap<K, T>::insert(const K &key, const T &value) {
+        if(treeroot_ == nullptr) {
+            std::pair<K, T> data = std::make_pair(key,value);
+            std::shared_ptr<node> n = std::make_shared<node>(data);
+            treesize_++;
+            return std::make_pair(iterator(treeroot_), true);
+        } else {
+
+        }
     }
 
 // add a new element into the tree, or overwrite existing element if key already in map
