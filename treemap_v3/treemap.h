@@ -89,9 +89,10 @@ namespace my {
 // - true if element was inserted; false if key was already in map
     template<typename K, typename T>
     std::pair<typename treemap<K, T>::iterator, bool> treemap<K, T>::insert(const K &key, const T &value) {
+        std::pair<K, T> data = std::make_pair(key,value);
+        std::shared_ptr<node> n = std::make_shared<node>(data);
         if(treeroot_ == nullptr) {
-            std::pair<K, T> data = std::make_pair(key,value);
-            std::shared_ptr<node> n = std::make_shared<node>(data);
+            treeroot_ = n;
             treesize_++;
             return std::make_pair(iterator(treeroot_), true);
         } else {
