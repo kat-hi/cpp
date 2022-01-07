@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/Users/hartmut/Desktop/2021-WS-C++/_Uebungen-WS2022/Code/A3-TreeMap-Loesung/treemap_v3/build",
+  "command": "/usr/bin/clang++   -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15 -std=gnu++17 -o CMakeFiles/treemap.dir/main.cpp.o -c /Users/hartmut/Desktop/2021-WS-C++/_Uebungen-WS2022/Code/A3-TreeMap-Loesung/treemap_v3/main.cpp",
+  "file": "/Users/hartmut/Desktop/2021-WS-C++/_Uebungen-WS2022/Code/A3-TreeMap-Loesung/treemap_v3/main.cpp"
+},
+{
+  "directory": "/Users/hartmut/Desktop/2021-WS-C++/_Uebungen-WS2022/Code/A3-TreeMap-Loesung/treemap_v3/build",
+  "command": "/usr/bin/clang++   -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15 -std=gnu++17 -o CMakeFiles/treemap.dir/payload.cpp.o -c /Users/hartmut/Desktop/2021-WS-C++/_Uebungen-WS2022/Code/A3-TreeMap-Loesung/treemap_v3/payload.cpp",
+  "file": "/Users/hartmut/Desktop/2021-WS-C++/_Uebungen-WS2022/Code/A3-TreeMap-Loesung/treemap_v3/payload.cpp"
+}
+]

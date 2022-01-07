@@ -1,0 +1,59 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "A3",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "treemap::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-treemap-Debug-e7a3859df244a538590f.json",
+					"name" : "treemap",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/hartmut/Desktop/2021-WS-C++/_Uebungen-WS2022/Code/A3-TreeMap-Loesung/treemap_v3/build",
+		"source" : "/Users/hartmut/Desktop/2021-WS-C++/_Uebungen-WS2022/Code/A3-TreeMap-Loesung/treemap_v3"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 1
+	}
+}
