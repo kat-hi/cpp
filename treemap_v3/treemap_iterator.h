@@ -31,8 +31,8 @@ namespace my {
         }
 
         value_type *operator->() {
-            /* todo */ static value_type dummy;
-            return &dummy;
+            auto node_ptr = nodeObserver_.lock();
+            return &node_ptr->data_;
         }
 
         // two iterators are equal if they point to the same node

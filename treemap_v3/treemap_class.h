@@ -84,8 +84,12 @@ namespace my {
         // - true if element was newly created; false if existing element was overwritten
         std::pair<iterator, bool> insert_or_assign(const K &, const T &);
 
+
         // find element with specific key. returns end() if not found.
         iterator find(const K &) const;
+
+    private:
+        std::pair<iterator, bool> insertOrAssign(const K &, const T &, bool assign);
 
     };
 

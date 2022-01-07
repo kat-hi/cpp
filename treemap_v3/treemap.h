@@ -87,17 +87,26 @@ namespace my {
 // returns:
 // - iterator to element
 // - true if element was inserted; false if key was already in map
+
     template<typename K, typename T>
-    std::pair<typename treemap<K, T>::iterator, bool> treemap<K, T>::insert(const K &key, const T &value) {
-        std::pair<K, T> data = std::make_pair(key,value);
-        std::shared_ptr<node> n = std::make_shared<node>(data);
-        if(treeroot_ == nullptr) {
-            treeroot_ = n;
+    std::pair<typename treemap<K, T>::iterator, bool> treemap<K, T>::insertOrAssign(const K &key, const T &value, bool assign) {
+        std::pair<K, T> data = std::make_pair(key, value);
+        if (treeroot_ == nullptr) {
+            treeroot_ = std::make_shared<node>(data);
             treesize_++;
             return std::make_pair(iterator(treeroot_), true);
         } else {
-
+            std::pair<std::shared_ptr<node>, bool> n = treeroot_->insert(data, assign);
+            if (n.second) {
+                treesize_++;
+            }
+            return std::make_pair(iterator(n.first), n.second);
         }
+    }
+
+    template<typename K, typename T>
+    std::pair<typename treemap<K, T>::iterator, bool> treemap<K, T>::insert(const K &key, const T &value) {
+        return insertOrAssign(key, value, false);
     }
 
 // add a new element into the tree, or overwrite existing element if key already in map
@@ -106,8 +115,8 @@ namespace my {
 // - true if element was newly created; false if value for existing key was overwritten
     template<typename K, typename T>
     std::pair<typename treemap<K, T>::iterator, bool>
-    treemap<K, T>::insert_or_assign(const K &, const T &) {
-        /* todo */ return std::make_pair(iterator(), false);
+    treemap<K, T>::insert_or_assign(const K &key, const T &value) {
+        return insertOrAssign(key, value, true);
     }
 
 // find element with specific key. returns end() if not found.

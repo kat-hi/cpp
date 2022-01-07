@@ -12,21 +12,19 @@ using namespace std;
 using my::treemap;
 
 // helper function for human readable output
-ostream& operator<<(ostream& os, Payload p)
-{
+ostream &operator<<(ostream &os, Payload p) {
     return os << "(" << p.x << "," << p.y << "," << p.z << ") ";
 }
 
-int main()
-{
+int main() {
 
-     {
+    {
         cout << "1. treemap basics..." << endl;
 
         treemap<string, Payload> m;
- 
+
         // initially the map must be empty
-        assert(m.size() == 0); 
+        assert(m.size() == 0);
         // no Payload objects created
         assert(Payload::count() == 0);
 
@@ -43,45 +41,46 @@ int main()
         treemap<string, Payload> m;
 
         // inserting (key,value) pairs
-        cout << "insert Three, " << Payload(3,3,3) << endl;
-        auto [iter3,flag3] = m.insert("Three", Payload(3,3,3));
+        cout << "insert Three, " << Payload(3, 3, 3) << endl;
+        auto[iter3, flag3] = m.insert("Three", Payload(3, 3, 3));
         assert(flag3 == true);
         assert(m.size() == 1);
-//
-//        cout << "insert Seven, " << Payload(7,7,7) << endl;
-//        auto [iter7,flag7] = m.insert("Seven", Payload(7,7,7));
-//        assert(flag7 == true);
-//        assert(m.size() == 2);
-//
-//        {
-//            // insert a third element
-//            // insert() returns a pair of an iterator an a bool
-//            cout << "insert Eleven" << endl;
-//            auto [iter11, was_inserted11] = m.insert("Eleven", Payload(11,11,11));
-//
-//            // the bool should be true if the alement was newly inserted (key has not been in the map befoee)
-//            assert(was_inserted11 == true);
-//
-//            // returned iterator should point to the inserted key and value
-//            assert(iter11->first == "Eleven");
-//            assert(iter11->second == Payload(11,11,11));
-//
-//            assert(m.size() == 3);
-//        }
-//        {
-//            // try to overwrite the value for the existing key "Three"
-//            cout << "do not overwrite Three" << endl;
-//            auto [iter_three, was_inserted] = m.insert("Three", Payload(3,4,5));
-//            assert(was_inserted == false);
-//            assert(iter_three->second == Payload(3,3,3));
-//        }
-//        {
-//            // now implement insert_or_assign; refactor so you do not duplicate too much code of insert()
-//            cout << "overwrite Three" << endl;
-//            auto [iter_three, was_inserted] = m.insert_or_assign("Three", Payload(3,4,5));
-//            assert(was_inserted == false);
-//            assert(iter_three->second == Payload(3,4,5));
-//        }
+
+
+        cout << "insert Seven, " << Payload(7, 7, 7) << endl;
+        auto[iter7, flag7] = m.insert("Seven", Payload(7, 7, 7));
+        assert(flag7 == true);
+        assert(m.size() == 2);
+
+        {
+            // insert a third element
+            // insert() returns a pair of an iterator an a bool
+            cout << "insert Eleven" << endl;
+            auto[iter11, was_inserted11] = m.insert("Eleven", Payload(11, 11, 11));
+
+            // the bool should be true if the alement was newly inserted (key has not been in the map befoee)
+            assert(was_inserted11 == true);
+
+            // returned iterator should point to the inserted key and value
+            assert(iter11->first == "Eleven");
+            assert(iter11->second == Payload(11, 11, 11));
+
+            assert(m.size() == 3);
+        }
+        {
+            // try to overwrite the value for the existing key "Three"
+            cout << "do not overwrite Three" << endl;
+            auto[iter_three, was_inserted] = m.insert("Three", Payload(3, 4, 5));
+            assert(was_inserted == false);
+            assert(iter_three->second == Payload(3, 3, 3));
+        }
+        {
+            // now implement insert_or_assign; refactor so you do not duplicate too much code of insert()
+            cout << "overwrite Three" << endl;
+            auto [iter_three, was_inserted] = m.insert_or_assign("Three", Payload(3,4,5));
+            assert(was_inserted == false);
+            assert(iter_three->second == Payload(3,4,5));
+        }
 //
 //        // now implement find() and count()
 //        cout << "count and find... " << endl;
