@@ -15,42 +15,69 @@ namespace my {
             : public std::enable_shared_from_this<node> {
 
     public:
-        std::weak_ptr<node> parent_ = std::weak_ptr<node>();
-        std::shared_ptr<node> child_L_ = nullptr;
-        std::shared_ptr<node> child_R_ = nullptr;
+        std::weak_ptr<node> parentnode_ = std::weak_ptr<node>();
+        std::shared_ptr<node> left_child = nullptr;
+        std::shared_ptr<node> right_child = nullptr;
         std::pair<K, T> data_ = std::pair<K, T>();
 
         node() = default;
 
         node(const std::pair<K, T> &data) : data_(data) {}
 
-        std::pair<std::shared_ptr<node>, bool> insert(const std::pair<K, T> &data, bool assign) {
+        std::pair<std::shared_ptr<node>, bool> insert(const std::pair<K, T> &data, bool overwrite) {
             bool inserted = false;
             if (data_.first > data.first) {
-                if (child_L_ == nullptr) {
-                    child_L_ = std::make_shared<node>(data);
-                    child_L_->parent_ = node::weak_from_this();
+                if (left_child == nullptr) {
+                    left_child = std::make_shared<node>(data);
+                    left_child->parentnode_ = node::weak_from_this();
                     inserted = true;
-                    return std::make_pair(child_L_, inserted);
+                    return std::make_pair(left_child, inserted);
                 } else {
-                    // again insert, until it returns
-                    return child_L_->insert(data, assign);
+                    // again call insert, until it returns
+                    return left_child->insert(data, overwrite);
                 }
             } else if (data_.first < data.first) {
-                if (child_R_ == nullptr) {
-                    child_R_ = std::make_shared<node>(data);
-                    child_R_->parent_ = node::weak_from_this();
+                if (right_child == nullptr) {
+                    right_child = std::make_shared<node>(data);
+                    right_child->parentnode_ = node::weak_from_this();
                     inserted = true;
-                    return std::make_pair(child_R_, inserted);
+                    return std::make_pair(right_child, inserted);
                 } else {
-                    // again insert, until it returns
-                    return child_R_->insert(data, assign);
+                    // again call insert, until it returns
+                    return right_child->insert(data, overwrite);
                 }
-            } else if (data_.first == data.first) { // wenn key gleich ist, gibt den node zurück
-                if(assign) {
-                    data_ = data;
-                }
+            } else { // wenn key gleich ist, gibt den node zurück
+                if (overwrite) data_ = data;
                 return std::make_pair(node::shared_from_this(), inserted);
+            }
+        }
+
+        std::pair<std::shared_ptr<node>, bool> find(const K &key) {
+            bool found = false;
+            if (key < data_.first) {
+                if (left_child == nullptr) {
+                    return std::make_pair(nullptr, found);
+                } else {
+                    return left_child->find(key);
+                }
+            } else if (key > data_.first) {
+                if (right_child == nullptr) {
+                    return std::make_pair(nullptr, found);
+                } else {
+                    return right_child->find(key);
+                }
+            } else { // if key == data_.first
+                found = true;
+                return std::make_pair(node::shared_from_this(), found);
+            }
+        }
+
+
+        std::shared_ptr<node> get_smallest_node() {
+            if (left_child == nullptr) {
+                return node::shared_from_this();
+            } else {
+                return right_child->get_smallest_node();
             }
         }
     };

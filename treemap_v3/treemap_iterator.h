@@ -31,8 +31,8 @@ namespace my {
         }
 
         value_type *operator->() {
-            auto node_ptr = nodeObserver_.lock();
-            return &node_ptr->data_;
+            auto node = nodeObserver_.lock();
+            return &node->data_;
         }
 
         // two iterators are equal if they point to the same node

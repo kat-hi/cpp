@@ -17,9 +17,11 @@ ostream &operator<<(ostream &os, Payload p) {
 }
 
 int main() {
+    string done = "\u2705";
+    string arrow = "\u21E8";
 
     {
-        cout << "1. treemap basics..." << endl;
+        cout << "1. treemap basics...";
 
         treemap<string, Payload> m;
 
@@ -28,14 +30,15 @@ int main() {
         // no Payload objects created
         assert(Payload::count() == 0);
 
-        cout << "done..." << endl;
+        printf("%24s", "");
+        cout << done << endl;
     }
     assert(Payload::count() == 0);
     cout << endl;
 
 #if 1
     {
-        cout << "2. insert, find, count, size, clear ..." << endl;
+        cout << "2. insert, find, count, size, clear ...";
 
         // implement insert() first!
         treemap<string, Payload> m;
@@ -77,61 +80,59 @@ int main() {
         {
             // now implement insert_or_assign; refactor so you do not duplicate too much code of insert()
             cout << "overwrite Three" << endl;
-            auto [iter_three, was_inserted] = m.insert_or_assign("Three", Payload(3,4,5));
+            auto[iter_three, was_inserted] = m.insert_or_assign("Three", Payload(3, 4, 5));
             assert(was_inserted == false);
-            assert(iter_three->second == Payload(3,4,5));
+            assert(iter_three->second == Payload(3, 4, 5));
         }
 
         // now implement find() and count()
         cout << "count and find... " << endl;
 
         // key "Three" should be found exactly once
-//        assert(m.count("Three") == 1);
-//
-//        // key "Four" should not be found
-//        assert(m.count("Four") == 0);
-//
-//        // there have been three Payloads inserted, not less, not more
-//        assert(Payload::count() == 3);
-//
-//        {
-//
-//            // find() finds the key in the map and returns an iterator. Should not change count.
-//            auto eleven = m.find("Eleven");
-//            assert(Payload::count() == 3);
-//
-//            // output key and value to console
-//            auto key = eleven->first;
-//            auto value = eleven->second;
-//            cout << "found payload Eleven: [ " << key << "," << value << " ]" << endl;
-//
-//            // clear()
-//            cout << "clear!" << endl;
-//            m.clear();
-//            assert(m.size() == 0);
-//
-//            // "value" still holds a shared_ptr to one Payload obj, so the Payload has not been destroyed
-//            assert(Payload::count() == 1);
-//        }
-//        assert(Payload::count() == 0);
-//
-//        cout << "done." << endl;
-//    }
-//
-//    assert(Payload::count() == 0);
-//    cout << endl;
-//
-//    {
-//        cout << "3. operator [] read/write..." << endl;
-//
-//        treemap<string, Payload> m;
-//
-//        // [] write operation
+        assert(m.count("Three") == 1);
+
+        // key "Four" should not be found
+        assert(m.count("Four") == 0);
+
+        // there have been three Payloads inserted, not less, not more
+        assert(Payload::count() == 3);
+
+        {
+
+            // find() finds the key in the map and returns an iterator. Should not change count.
+            auto eleven = m.find("Eleven");
+            assert(Payload::count() == 3);
+
+            // output key and value to console
+            auto key = eleven->first;
+            auto value = eleven->second;
+            cout << "found payload Eleven: [ " << key << "," << value << " ]" << endl;
+
+            // clear()
+            cout << "clear!" << endl;
+            m.clear();
+            assert(m.size() == 0);
+
+            // "value" still holds a shared_ptr to one Payload obj, so the Payload has not been destroyed
+            assert(Payload::count() == 1);
+        }
+        assert(Payload::count() == 0);
+
+        cout << "done. ";
+        cout << done << endl;
+
+
+    {
+        cout << "3. operator [] read/write...";
+
+        treemap<string, Payload> m;
+
+        // [] write operation
 //        m["B=1"] = Payload(1,1,1);
 //        m["A=2"] = Payload(2,2,2);
 //        m["C=3"] = Payload(3,4,5);
 //        assert(m["C=3"] == Payload(3,4,5));
-//
+
 //        // overwriting an existing value
 //        m["C=3"] = Payload(3,3,3);
 //        assert(m["C=3"] == Payload(3,3,3));
@@ -151,9 +152,9 @@ int main() {
 //        cout << "C: " << const_m["C=3"] << endl;
 //        assert(const_m["C=3"] == Payload(3,3,3));
 //
-//        cout << "done." << endl;
-//
-//    }
+            cout << "done. ";
+            cout << done << endl;//
+    }
 //
 //    assert(Payload::count() == 0);
 //    cout << endl;
