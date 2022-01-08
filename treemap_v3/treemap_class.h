@@ -90,6 +90,8 @@ namespace my {
 
     private:
         std::pair<iterator, bool> insertOrAssign(const K &, const T &, bool assign);
+        std::shared_ptr<node> create_root(const K& key);
+
 
     };
 

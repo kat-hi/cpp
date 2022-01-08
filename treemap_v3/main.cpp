@@ -30,27 +30,22 @@ int main() {
         // no Payload objects created
         assert(Payload::count() == 0);
 
-        printf("%24s", "");
+        printf("%17s", "");
         cout << done << endl;
     }
     assert(Payload::count() == 0);
-    cout << endl;
-
 #if 1
     {
-        cout << "2. insert, find, count, size, clear ...";
+        cout << "2. insert ";
 
         // implement insert() first!
         treemap<string, Payload> m;
 
         // inserting (key,value) pairs
-        cout << "insert Three, " << Payload(3, 3, 3) << endl;
         auto[iter3, flag3] = m.insert("Three", Payload(3, 3, 3));
         assert(flag3 == true);
         assert(m.size() == 1);
 
-
-        cout << "insert Seven, " << Payload(7, 7, 7) << endl;
         auto[iter7, flag7] = m.insert("Seven", Payload(7, 7, 7));
         assert(flag7 == true);
         assert(m.size() == 2);
@@ -58,7 +53,6 @@ int main() {
         {
             // insert a third element
             // insert() returns a pair of an iterator an a bool
-            cout << "insert Eleven" << endl;
             auto[iter11, was_inserted11] = m.insert("Eleven", Payload(11, 11, 11));
 
             // the bool should be true if the alement was newly inserted (key has not been in the map befoee)
@@ -72,22 +66,24 @@ int main() {
         }
         {
             // try to overwrite the value for the existing key "Three"
-            cout << "do not overwrite Three" << endl;
+//            cout << "do not overwrite Three" << endl;
             auto[iter_three, was_inserted] = m.insert("Three", Payload(3, 4, 5));
             assert(was_inserted == false);
             assert(iter_three->second == Payload(3, 3, 3));
         }
         {
             // now implement insert_or_assign; refactor so you do not duplicate too much code of insert()
-            cout << "overwrite Three" << endl;
+//            cout << "overwrite Three" << endl;
             auto[iter_three, was_inserted] = m.insert_or_assign("Three", Payload(3, 4, 5));
             assert(was_inserted == false);
             assert(iter_three->second == Payload(3, 4, 5));
         }
+        printf("%25s", "");
+        cout << done << endl;
 
         // now implement find() and count()
-        cout << "count and find... " << endl;
-
+        cout << "3. count, find, clear ";
+//, find, count, size, clear ...
         // key "Three" should be found exactly once
         assert(m.count("Three") == 1);
 
@@ -106,10 +102,8 @@ int main() {
             // output key and value to console
             auto key = eleven->first;
             auto value = eleven->second;
-            cout << "found payload Eleven: [ " << key << "," << value << " ]" << endl;
 
             // clear()
-            cout << "clear!" << endl;
             m.clear();
             assert(m.size() == 0);
 
@@ -117,64 +111,62 @@ int main() {
             assert(Payload::count() == 1);
         }
         assert(Payload::count() == 0);
+        printf("%16s", "");
 
-        cout << "done. ";
         cout << done << endl;
 
 
-    {
-        cout << "3. operator [] read/write...";
+        {
+            cout << "3. operator [] read/write...";
 
-        treemap<string, Payload> m;
+            treemap<string, Payload> m;
 
-        // [] write operation
-//        m["B=1"] = Payload(1,1,1);
-//        m["A=2"] = Payload(2,2,2);
-//        m["C=3"] = Payload(3,4,5);
-//        assert(m["C=3"] == Payload(3,4,5));
+            // [] write operation
+            m["B=1"] = Payload(1, 1, 1);
+            m["A=2"] = Payload(2, 2, 2);
+            m["C=3"] = Payload(3, 4, 5);
+            assert(m["C=3"] == Payload(3, 4, 5));
 
-//        // overwriting an existing value
-//        m["C=3"] = Payload(3,3,3);
-//        assert(m["C=3"] == Payload(3,3,3));
-//
-//        // count()
-//        assert(m.count("A=2") == 1);
-//        assert(m.count("B=1") == 1);
-//        assert(m.count("C=3") == 1);
-//        assert(m.size() == 3);
-//
-//        // const version of operator[]
-//        auto const& const_m = m;
+            // overwriting an existing value
+            m["C=3"] = Payload(3, 3, 3);
+            assert(m["C=3"] == Payload(3, 3, 3));
+
+            // count()
+            assert(m.count("A=2") == 1);
+            assert(m.count("B=1") == 1);
+            assert(m.count("C=3") == 1);
+            assert(m.size() == 3);
+
+            // const version of operator[]
+            auto const &const_m = m;
 //        cout << "A: " << const_m["A=2"] << endl;
-//        assert(const_m["A=2"] == Payload(2,2,2));
-//        cout << "B: " << const_m["B=1"] << endl;
-//        assert(const_m["B=1"] == Payload(1,1,1));
-//        cout << "C: " << const_m["C=3"] << endl;
-//        assert(const_m["C=3"] == Payload(3,3,3));
-//
-            cout << "done. ";
-            cout << done << endl;//
-    }
-//
-//    assert(Payload::count() == 0);
-//    cout << endl;
-//
-//    {
-//        cout << "4. begin(), end(), ++ ..." << endl;
-//
-//        treemap<string, int> m;
-//
-//        m["Hartmut"] = 1;
-//        m["Helmut"] = 2;
-//        m["Zebra"] = 3;
-//        m["Anna"] = 4;
-//        m["Klaus"] = 5;
-//        assert(m.size() == 5);
-//
-//        // iterator++, iterator operator->
-//        cout << "iterating through list in normal order:" << endl;
-//        for(auto i=m.begin(); i!=m.end(); ++i)
-//            cout << "  " << i->first << ": " << i->second << endl;
+            assert(const_m["A=2"] == Payload(2, 2, 2));
+            assert(const_m["B=1"] == Payload(1, 1, 1));
+            assert(const_m["C=3"] == Payload(3, 3, 3));
+
+            printf("%7s", "");
+            cout << done << endl;
+        }
+
+        assert(Payload::count() == 0);
+        cout << endl;
+
+        {
+            cout << "4. begin(), end(), ++ ..." << endl;
+
+            treemap<string, int> m;
+
+            m["Hartmut"] = 1;
+            m["Helmut"] = 2;
+            m["Zebra"] = 3;
+            m["Anna"] = 4;
+            m["Klaus"] = 5;
+            assert(m.size() == 5);
+
+            // iterator++, iterator operator->
+//            cout << "iterating through list in normal order:" << endl;
+//            for (auto i = m.begin(); i != m.end(); ++i)
+//                cout << "  " << i->first << ": " << i->second << endl;
 //
 //        assert(m.begin()->first == "Anna");
 //        assert((++m.begin())->first == "Hartmut");
@@ -187,9 +179,9 @@ int main() {
 //        for(auto x : m)
 //            cout << "  " << x.first << ": " << x.second << endl;
 //
-//        cout << "done." << endl;
-//
-//    }
+            printf("%7s", "");
+            cout << done << endl;//
+        }
 //
 //    assert(Payload::count() == 0);
 //    cout << endl;

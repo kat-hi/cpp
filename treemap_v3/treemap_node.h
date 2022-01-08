@@ -22,7 +22,7 @@ namespace my {
 
         node() = default;
 
-        node(const std::pair<K, T> &data) : data_(data) {}
+        explicit node(const std::pair<K, T> &data) : data_(data) {}
 
         std::pair<std::shared_ptr<node>, bool> insert(const std::pair<K, T> &data, bool overwrite) {
             bool inserted = false;

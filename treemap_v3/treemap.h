@@ -36,12 +36,18 @@ namespace my {
 // random write access to value by key
     template<typename K, typename T>
     T &treemap<K, T>::operator[](const K &key) {
-        auto iter = find(key);
-        if (iter.nodeObserver_.lock() == nullptr) {
-            auto insertion = insert(key, T());
-            return insertion.first->second;
+        if (treeroot_ == nullptr) {
+            treeroot_ = std::make_shared<node>(std::make_pair(key, T())); // providing space for type T()
+            treesize_++;
+            return treeroot_->data_.second; // returning data_.second so that lvalue can be assigned to that
         } else {
-            return iter->second;
+            auto node = find(key);
+            if (node.nodeObserver_.lock() != nullptr) {
+                return node->second;
+            } else {
+                std::pair<treemap<K, T>::iterator, bool> n = insert(key, T());
+                return n.first->second;
+            }
         }
     }
 
@@ -60,13 +66,16 @@ namespace my {
 // deep copy ctor
     template<typename K, typename T>
     treemap<K, T>::treemap(const treemap<K, T> &map) {
-        /* todo */
+        for (auto i = map.begin(); i != map.end(); ++i) {
+            this->insert(i->first, i->second);
+        }
     }
 
 // assignment (move & copy)
     template<typename K, typename T>
-    treemap<K, T> &treemap<K, T>::operator=(treemap<K, T>) {
-        /* todo, use copy&swap */
+    treemap<K, T> &treemap<K, T>::operator=(treemap<K, T> tm) {
+        treemap<K, T> tm_tmp(tm);
+        swap(*this, tm_tmp);
         return *this;
     }
 
@@ -106,6 +115,7 @@ namespace my {
         }
     }
 
+
     template<typename K, typename T>
     std::pair<typename treemap<K, T>::iterator, bool> treemap<K, T>::insert(const K &key, const T &value) {
         return insertOrAssign(key, value, false);
@@ -131,17 +141,17 @@ namespace my {
 // how often is the element contained in the map? @todo refactor!
     template<typename K, typename T>
     size_t treemap<K, T>::count(const K &key) const {
-        if (treeroot_->find(key).second) {
-            return 1;
-        }
-        return 0;
+        if (treeroot_->find(key).second) return 1;
+        else return 0;
     }
 
 // swap is overloaded in global namespace
 // see https://stackoverflow.com/questions/11562/how-to-overload-stdswap
 // (answer by Attention Mozza314)
     template<typename K, typename T>
-    void treemap<K, T>::swap(treemap<K, T> &, treemap<K, T> &) {
+    void treemap<K, T>::swap(treemap<K, T> &lhs, treemap<K, T> &rhs) {
+        std::swap(lhs.treeroot_, rhs.treeroot_);
+        std::swap(lhs.treesize_, rhs.treesize_);
     }
 
 } // my::
