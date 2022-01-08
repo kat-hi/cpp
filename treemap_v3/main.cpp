@@ -152,7 +152,7 @@ int main() {
         cout << endl;
 
         {
-            cout << "4. begin(), end(), ++ ..." << endl;
+            cout << "4. begin(), end(), ++ ... " <<endl;
 
             treemap<string, int> m;
 
@@ -164,46 +164,50 @@ int main() {
             assert(m.size() == 5);
 
             // iterator++, iterator operator->
-//            cout << "iterating through list in normal order:" << endl;
-//            for (auto i = m.begin(); i != m.end(); ++i)
-//                cout << "  " << i->first << ": " << i->second << endl;
-//
-//        assert(m.begin()->first == "Anna");
-//        assert((++m.begin())->first == "Hartmut");
-//        assert((++++m.begin())->first == "Helmut");
-//        assert((++++++m.begin())->first == "Klaus");
-//        assert((++++++++m.begin())->first == "Zebra");
-//
-//        // iterator++, iterator operator*
-//        cout << "iterating through list using range-based for loop:" << endl;
-//        for(auto x : m)
-//            cout << "  " << x.first << ": " << x.second << endl;
-//
+            cout << "iterating through list in normal order:" ;
+            for (auto i = m.begin(); i != m.end(); ++i) {
+                cout << "  " << i->first << ": " << i->second << endl;
+            }
+
+            assert(m.begin()->first == "Anna");
+            assert((++m.begin())->first == "Hartmut");
+            assert((++++m.begin())->first == "Helmut");
+            assert((++++++m.begin())->first == "Klaus");
+            assert((++++++++m.begin())->first == "Zebra");
             printf("%7s", "");
-            cout << done << endl;//
+            cout << done << endl;
+
+
+            // iterator++, iterator operator*
+        cout << "iterating through list using range-based for loop:";
+        for(auto x : m)
+            cout << "  " << x.first << ": " << x.second << endl;
+
+            printf("%7s", "");
+            cout << done << endl;
         }
-//
-//    assert(Payload::count() == 0);
-//    cout << endl;
-//
-//    {
-//        cout << "5. iterator, -- ..." << endl;
-//
-//        treemap<string, int> m;
-//        m["Hartmut"] = 1;
-//        m["Helmut"] = 2;
-//        m["Zebra"] = 3;
-//        m["Anna"] = 4;
-//        m["Klaus"] = 5;
-//        assert(m.size() == 5);
-//
-//        // iterator--
-//        cout << "iterating through list in reverse order:" << endl;
-//        /* todo */
-//        // while(...) {
-//        //        cout << "  " << i->first << ": " << i->second << endl;
-//        // }
-//        }
+
+    assert(Payload::count() == 0);
+    cout << endl;
+
+    {
+        cout << "5. iterator, -- ...";
+
+        treemap<string, int> m;
+        m["Hartmut"] = 1;
+        m["Helmut"] = 2;
+        m["Zebra"] = 3;
+        m["Anna"] = 4;
+        m["Klaus"] = 5;
+        assert(m.size() == 5);
+
+        // iterator--
+        cout << "iterating through list in reverse order:" << endl;
+        /* todo */
+        // while(...) {
+        //        cout << "  " << i->first << ": " << i->second << endl;
+        // }
+        }
 //
 //        // some bit of automatic testing in addition
 //        assert((--m.end())->first == "Zebra");
@@ -211,69 +215,71 @@ int main() {
 //
 //        cout << "done." << endl;
 //
-//    }
-//
-//    assert(Payload::count() == 0);
-//    cout << endl;
-//
-//    {
-//        cout << "6. move ..." << endl;
-//        assert(Payload::count() == 0); // just for sanity's sake
-//
-//        treemap<string, Payload> m;
-//        m["Hartmut"] = Payload(1,1,1);
-//        m["Helmut"]  = Payload(1,2,1);
-//        m["Zebra"]   = Payload(1,3,1);
-//        m["Anna"]    = Payload(1,4,1);
-//        m["Klaus"]   = Payload(1,5,1);
-//        assert(m.size() == 5);
-//        assert(Payload::count() == 5);
-//
-//        // move it
-//        auto m2 = std::move(m);
-//
-//        // no duplicates?
-//        assert(Payload::count() == 5);
-//
-//        // keys and values still intact?
-//        assert(m2["Anna"] == Payload(1,4,1));
-//        assert(m2["Klaus"] == Payload(1,5,1));
-//
-//        cout << "done." << endl;
-//    }
-//    assert(Payload::count() == 0);
-//    cout << endl;
-//
-//    {
-//        cout << "7. deep copy ..." << endl;
-//
-//        assert(Payload::count() == 0); // just for sanity's sake
-//
-//        treemap<string, Payload> m;
-//        m["Hartmut"] = Payload(1,1,1);
-//        m["Helmut"]  = Payload(1,2,1);
-//        m["Zebra"]   = Payload(1,3,1);
-//        m["Anna"]    = Payload(1,4,1);
-//        m["Klaus"]   = Payload(1,5,1);
-//        assert(m.size() == 5);
-//        assert(Payload::count() == 5);
-//
-//        // copy it
+    }
+
+    assert(Payload::count() == 0);
+
+    {
+        cout << "6. move ...";
+        assert(Payload::count() == 0); // just for sanity's sake
+
+        treemap<string, Payload> m;
+        m["Hartmut"] = Payload(1,1,1);
+        m["Helmut"]  = Payload(1,2,1);
+        m["Zebra"]   = Payload(1,3,1);
+        m["Anna"]    = Payload(1,4,1);
+        m["Klaus"]   = Payload(1,5,1);
+        assert(m.size() == 5);
+        assert(Payload::count() == 5);
+
+        // move it
+        auto m2 = std::move(m);
+
+        // no duplicates?
+        assert(Payload::count() == 5);
+
+        // keys and values still intact?
+        assert(m2["Anna"] == Payload(1,4,1));
+        assert(m2["Klaus"] == Payload(1,5,1));
+
+        printf("%7s", "");
+        cout << done << endl;
+    }
+    assert(Payload::count() == 0);
+    cout << endl;
+
+    {
+        cout << "7. deep copy ...";
+
+        assert(Payload::count() == 0); // just for sanity's sake
+
+        treemap<string, Payload> m;
+        m["Hartmut"] = Payload(1,1,1);
+        m["Helmut"]  = Payload(1,2,1);
+        m["Zebra"]   = Payload(1,3,1);
+        m["Anna"]    = Payload(1,4,1);
+        m["Klaus"]   = Payload(1,5,1);
+        assert(m.size() == 5);
+        assert(Payload::count() == 5);
+
+//         copy it
 //        auto m2 = m;
 //
 //        // exactly twice as many objects now?
+//        cout << Payload::count() << endl;
 //        assert(Payload::count() == 10);
 //
 //        // keys and values still intact?
 //        assert(m2["Anna"] == m["Anna"]);
 //        assert(m2["Klaus"] == m["Klaus"]);
-//
+
 //        // two independent copies?
 //        auto old_anna = m["Anna"];
 //        m["Anna"] = Payload(99,100,101);
 //        assert(m2["Anna"] == old_anna);
 //
-//        cout << "done." << endl;
+        printf("%7s", "");
+        cout << done << endl;
     }
 #endif
 

@@ -18,8 +18,7 @@
 namespace my {
 
     template<typename K, typename T>
-    treemap<K, T>::treemap() {
-    }
+    treemap<K, T>::treemap() = default;
 
     template<typename K, typename T>
     void treemap<K, T>::clear() {
@@ -65,9 +64,10 @@ namespace my {
 
 // deep copy ctor
     template<typename K, typename T>
+
     treemap<K, T>::treemap(const treemap<K, T> &map) {
-        for (auto i = map.begin(); i != map.end(); ++i) {
-            this->insert(i->first, i->second);
+        for(auto node : map) {
+            this->insert(node->first, node->second);
         }
     }
 
@@ -83,14 +83,16 @@ namespace my {
 // iterator referencing first element (node) in map
     template<typename K, typename T>
     typename treemap<K, T>::iterator treemap<K, T>::begin() {
+        if (treeroot_ == nullptr) return iterator(nullptr, nullptr);
+
         std::shared_ptr<node> smallest_node = treeroot_->get_smallest_node();
-        return iterator(smallest_node);
+        return iterator(smallest_node, treeroot_);
     }
 
 // iterator referencing no element (node) in map
     template<typename K, typename T>
     typename treemap<K, T>::iterator treemap<K, T>::end() const {
-        return iterator(nullptr);
+        return iterator(nullptr, treeroot_);
     }
 
 // add a new element into the tree
@@ -105,13 +107,13 @@ namespace my {
         if (treeroot_ == nullptr) {
             treeroot_ = std::make_shared<node>(data);
             treesize_++;
-            return std::make_pair(iterator(treeroot_), true);
+            return std::make_pair(iterator(treeroot_, treeroot_), true);
         } else {
             std::pair<std::shared_ptr<node>, bool> n = treeroot_->insert(data, overwrite);
             if (n.second) {
                 treesize_++;
             }
-            return std::make_pair(iterator(n.first), n.second);
+            return std::make_pair(iterator(n.first, treeroot_), n.second);
         }
     }
 
@@ -135,7 +137,7 @@ namespace my {
     typename treemap<K, T>::iterator treemap<K, T>::find(const K &key) const {
         std::pair<std::shared_ptr<node>, bool> node = treeroot_->find(key);
         if (node.second == false) return end();
-        else return iterator(node.first);
+        else return iterator(node.first, treeroot_);
     }
 
 // how often is the element contained in the map? @todo refactor!
