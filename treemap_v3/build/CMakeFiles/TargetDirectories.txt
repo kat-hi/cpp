@@ -1,3 +1,0 @@
-/Users/hartmut/Desktop/2021-WS-C++/_Uebungen-WS2022/Code/A3-TreeMap-Loesung/treemap_v3/build/CMakeFiles/rebuild_cache.dir
-/Users/hartmut/Desktop/2021-WS-C++/_Uebungen-WS2022/Code/A3-TreeMap-Loesung/treemap_v3/build/CMakeFiles/edit_cache.dir
-/Users/hartmut/Desktop/2021-WS-C++/_Uebungen-WS2022/Code/A3-TreeMap-Loesung/treemap_v3/build/CMakeFiles/treemap.dir

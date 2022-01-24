@@ -38,7 +38,7 @@ namespace my {
         if (treeroot_ == nullptr) {
             treeroot_ = std::make_shared<node>(std::make_pair(key, T())); // providing space for type T()
             treesize_++;
-            return treeroot_->data_.second; // returning data_.second so that lvalue can be assigned to that
+            return treeroot_->data_.second; // returning data_.second so that lvalue can get it
         } else {
             auto node = find(key);
             if (node.nodeObserver_.lock() != nullptr) {
@@ -58,35 +58,35 @@ namespace my {
 
 // move ctor
     template<typename K, typename T>
-    treemap<K, T>::treemap(treemap<K, T> &&map) {
-        swap(*this, map);
+    treemap<K, T>::treemap(treemap<K, T> &&treemap) {
+        swap(*this, treemap);
     }
 
 // deep copy ctor
     template<typename K, typename T>
-
-    treemap<K, T>::treemap(const treemap<K, T> &map) {
-        for(auto node : map) {
-            this->insert(node->first, node->second);
+    treemap<K, T>::treemap(const treemap<K, T> &treemap) {
+        for(auto node : treemap) {
+            this->insert(node.first, node.second);
         }
     }
 
 // assignment (move & copy)
     template<typename K, typename T>
-    treemap<K, T> &treemap<K, T>::operator=(treemap<K, T> tm) {
-        treemap<K, T> tm_tmp(tm);
-        swap(*this, tm_tmp);
+    treemap<K, T> &treemap<K, T>::operator=(treemap<K, T> rhs) {
+        treemap<K, T> map(rhs);
+        swap(*this, map);
         return *this;
     }
 
 
 // iterator referencing first element (node) in map
     template<typename K, typename T>
-    typename treemap<K, T>::iterator treemap<K, T>::begin() {
-        if (treeroot_ == nullptr) return iterator(nullptr, nullptr);
-
-        std::shared_ptr<node> smallest_node = treeroot_->get_smallest_node();
-        return iterator(smallest_node, treeroot_);
+    typename treemap<K, T>::iterator treemap<K, T>::begin() const {
+        if (treeroot_ != nullptr) {
+            std::shared_ptr<node> smallest_node = treeroot_->get_smallest_node();
+            return iterator(smallest_node, treeroot_);
+        }
+        return iterator(nullptr, nullptr);
     }
 
 // iterator referencing no element (node) in map
@@ -99,7 +99,6 @@ namespace my {
 // returns:
 // - iterator to element
 // - true if element was inserted; false if key was already in map
-
     template<typename K, typename T>
     std::pair<typename treemap<K, T>::iterator, bool>
     treemap<K, T>::insertOrAssign(const K &key, const T &value, bool overwrite) {
@@ -117,7 +116,6 @@ namespace my {
         }
     }
 
-
     template<typename K, typename T>
     std::pair<typename treemap<K, T>::iterator, bool> treemap<K, T>::insert(const K &key, const T &value) {
         return insertOrAssign(key, value, false);
@@ -128,8 +126,8 @@ namespace my {
 // - iterator to element
 // - true if element was newly created; false if value for existing key was overwritten
     template<typename K, typename T>
-    std::pair<typename treemap<K, T>::iterator, bool> treemap<K, T>::insert_or_assign(const K &key, const T &value) {
-        return insertOrAssign(key, value, true);
+    std::pair<typename treemap<K, T>::iterator, bool> treemap<K, T>::insert_or_assign(const K &k, const T &v) {
+        return insertOrAssign(k, v, true);
     }
 
 // find element with specific key. returns end() if not found.
@@ -140,11 +138,10 @@ namespace my {
         else return iterator(node.first, treeroot_);
     }
 
-// how often is the element contained in the map? @todo refactor!
     template<typename K, typename T>
     size_t treemap<K, T>::count(const K &key) const {
         if (treeroot_->find(key).second) return 1;
-        else return 0;
+        return 0;
     }
 
 // swap is overloaded in global namespace

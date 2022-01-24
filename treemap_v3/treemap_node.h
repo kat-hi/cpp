@@ -46,7 +46,7 @@ namespace my {
                     // again call insert, until it returns
                     return right_child_->insert(data, overwrite);
                 }
-            } else { // wenn key gleich ist, gibt den node zurück
+            } else { // wenn key gleich ist, gib den node zurück
                 if (overwrite) data_ = data;
                 return std::make_pair(node::shared_from_this(), inserted);
             }
@@ -72,7 +72,6 @@ namespace my {
             }
         }
 
-
         std::shared_ptr<node> get_smallest_node() {
             if (left_child_ == nullptr) {
                 return node::shared_from_this();
@@ -81,6 +80,4 @@ namespace my {
             }
         }
     };
-
-
-} // my::
+}

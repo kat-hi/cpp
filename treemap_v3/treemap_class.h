@@ -65,7 +65,7 @@ namespace my {
         size_t size() const;
 
         // iterator referencing first element (node) in map
-        iterator begin();
+        iterator begin() const;
 
         // iterator referencing no element (node) in map
         iterator end() const;
@@ -90,9 +90,6 @@ namespace my {
 
     private:
         std::pair<iterator, bool> insertOrAssign(const K &, const T &, bool assign);
-        std::shared_ptr<node> create_root(const K& key);
-
-
     };
 
 
