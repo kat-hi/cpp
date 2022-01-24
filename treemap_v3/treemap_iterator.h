@@ -17,14 +17,12 @@ namespace my {
 
         // construct iterator referencing a specific node
         // - only treemap shall be allowed to do so
-        iterator(const std::shared_ptr<node> &node_ref, const std::shared_ptr<node> &treeroot) : nodeObserver_(
-                std::weak_ptr<node>(node_ref)), treeroot_ptr_(std::weak_ptr<node>(treeroot)) {}
-
-//        iterator(const std::shared_ptr<node> &val, const std::shared_ptr<node> &root) : nodeObserver_(
-//                std::weak_ptr<node>(val)), root_(std::weak_ptr<node>(root)) {}
+        iterator(const node_ref &noderef, const node_ref &treeroot) : nodeObserver_(
+                std::weak_ptr<node>(noderef)), treeroot_ptr_(std::weak_ptr<node>(treeroot)) {}
 
         // non-owning reference to the actual node
         // node can be deleted even if an iterator points to it
+        // nach oben mit weakptr
         std::weak_ptr<node> nodeObserver_;
         std::weak_ptr<node> treeroot_ptr_;
 
@@ -32,12 +30,17 @@ namespace my {
 
         // access data of referenced map element (node)
         value_type &operator*() {
-            return nodeObserver_.lock()->data_;
+            auto node_access = nodeObserver_.lock();
+            if(node_access) {
+                return node_access->data_;
+            }
+            // @TODO Error handling
         }
 
         value_type *operator->() {
-            auto node = nodeObserver_.lock();
-            return &node->data_;
+            auto node_access = nodeObserver_.lock();
+            if(node_access) return &node_access->data_;
+            // @TODO Error handling
         }
 
         // two iterators are equal if they point to the same node
@@ -45,7 +48,7 @@ namespace my {
             return nodeObserver_.lock() == iter.nodeObserver_.lock();
         }
 
-        bool operator!=(const iterator &iter) const {
+        bool operator!=(const iterator& iter) const {
             return !(*this == iter);
         }
 

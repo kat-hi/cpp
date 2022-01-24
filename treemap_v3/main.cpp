@@ -175,19 +175,30 @@ int main() {
             assert((++ ++ ++m.begin())->first == "Klaus");
             assert((++ ++ ++ ++m.begin())->first == "Zebra");
 
-
             // iterator++, iterator operator*
             cout << "iterating through list using range-based for loop:" << endl;
             for (auto x: m) {
                 cout << "  " << x.first << ": " << x.second << endl;
             }
+            cout << "5. iterator == and !=";
+
+            auto i = ++m.begin();
+            auto i2 = ++m.begin();
+            assert(i == i2);
+
+            auto i3 = ++m.begin();
+            auto i4 = ++++m.begin();
+            assert(i3 != i4);
+
+            printf("%20s", "");
+            cout << done << endl;
         }
 
         assert(Payload::count() == 0);
         cout << endl;
 
         {
-            cout << "5. iterator, -- ...";
+            cout << "6. iterator, -- ...";
 
             treemap<string, int> m;
             m["Hartmut"] = 1;
@@ -216,7 +227,7 @@ int main() {
     assert(Payload::count() == 0);
 
     {
-        cout << "6. move ...";
+        cout << "7. move ...";
         assert(Payload::count() == 0); // just for sanity's sake
 
         treemap<string, Payload> m;
@@ -243,7 +254,7 @@ int main() {
     }
     assert(Payload::count() == 0);
     {
-        cout << "7. deep copy ...";
+        cout << "8. deep copy ...";
 
         assert(Payload::count() == 0); // just for sanity's sake
 
@@ -276,14 +287,30 @@ int main() {
         cout << done << endl;
     }
     {
-        cout << "7. non-owning reference ...";
-        treemap<string, Payload> map;
-        map["Hartmut"] = Payload(1, 1, 1);
-        map["Helmut"] = Payload(1, 2, 1);
-        assert(map.begin()->first == "Hartmut");
-        auto i = ++map.begin();
-        map.clear();
-    }
+        cout << "9. non-owning reference ...";
+        {
+            treemap<string, Payload> map;
+            map["Hartmut"] = Payload(1, 1, 1);
+            map["Helmut"] = Payload(1, 2, 1);
+            auto iter1 = map.begin();
+            auto iter2 = ++map.begin();
+
+            assert(iter1->first == "Hartmut");
+            assert(iter1->second == Payload(1, 1, 1));
+            assert(iter2->first == "Helmut");
+            assert(iter2->second == Payload(1, 2, 1));
+
+            map.clear();
+            // map is deleted even with existing iterators iter1 and iter2
+            assert(iter1->first != "Hartmut");
+            assert(iter1->second != Payload(1, 1, 1));
+            assert(iter2->first != "Helmut");
+            assert(iter2->second != Payload(1, 2, 1));
+        }
+
+        printf("%14s", "");
+        cout << done << endl;
+     }
 #endif
 
 
