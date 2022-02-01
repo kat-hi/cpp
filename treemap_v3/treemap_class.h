@@ -18,12 +18,11 @@ namespace my {
         // protected inner class node is defined in a separate header file
         class node;
 
-    public:
 
+    public:
         // public type aliases
-        using key_type = K;
-        using mapped_type = T;
         using value_type = std::pair<K, T>;
+        using node_ref = std::shared_ptr<node>;
 
     private:
         size_t treesize_ = 0;
@@ -89,7 +88,7 @@ namespace my {
         iterator find(const K &) const;
 
     private:
-        std::pair<iterator, bool> insertOrAssign(const K &, const T &, bool assign);
+        std::pair<iterator, bool> insertOrOverwrite(const K &, const T &, bool assign);
     };
 
 

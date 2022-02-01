@@ -83,10 +83,11 @@ namespace my {
     template<typename K, typename T>
     typename treemap<K, T>::iterator treemap<K, T>::begin() const {
         if (treeroot_ != nullptr) {
-            std::shared_ptr<node> smallest_node = treeroot_->get_smallest_node();
+            node_ref smallest_node = treeroot_->get_smallest_node();
             return iterator(smallest_node, treeroot_);
         }
-        return iterator(nullptr, nullptr);
+        // if no node exists, return iterator nullptr
+        return iterator(nullptr, treeroot_);
     }
 
 // iterator referencing no element (node) in map
@@ -98,17 +99,17 @@ namespace my {
 // add a new element into the tree
 // returns:
 // - iterator to element
-// - true if element was inserted; false if key was already in map
+// - true if element was inserted; false if key already has been in map
     template<typename K, typename T>
     std::pair<typename treemap<K, T>::iterator, bool>
-    treemap<K, T>::insertOrAssign(const K &key, const T &value, bool overwrite) {
+    treemap<K, T>::insertOrOverwrite(const K &key, const T &value, bool overwrite) {
         std::pair<K, T> data = std::make_pair(key, value);
         if (treeroot_ == nullptr) {
             treeroot_ = std::make_shared<node>(data);
             treesize_++;
             return std::make_pair(iterator(treeroot_, treeroot_), true);
         } else {
-            std::pair<std::shared_ptr<node>, bool> n = treeroot_->insert(data, overwrite);
+            std::pair<node_ref, bool> n = treeroot_->insert(data, overwrite);
             if (n.second) {
                 treesize_++;
             }
@@ -118,7 +119,7 @@ namespace my {
 
     template<typename K, typename T>
     std::pair<typename treemap<K, T>::iterator, bool> treemap<K, T>::insert(const K &key, const T &value) {
-        return insertOrAssign(key, value, false);
+        return insertOrOverwrite(key, value, false);
     }
 
 // add a new element into the tree, or overwrite existing element if key already in map
@@ -127,13 +128,13 @@ namespace my {
 // - true if element was newly created; false if value for existing key was overwritten
     template<typename K, typename T>
     std::pair<typename treemap<K, T>::iterator, bool> treemap<K, T>::insert_or_assign(const K &k, const T &v) {
-        return insertOrAssign(k, v, true);
+        return insertOrOverwrite(k, v, true);
     }
 
 // find element with specific key. returns end() if not found.
     template<typename K, typename T>
     typename treemap<K, T>::iterator treemap<K, T>::find(const K &key) const {
-        std::pair<std::shared_ptr<node>, bool> node = treeroot_->find(key);
+        std::pair<node_ref, bool> node = treeroot_->find(key);
         if (node.second == false) return end();
         else return iterator(node.first, treeroot_);
     }
